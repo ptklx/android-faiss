@@ -1,3 +1,32 @@
+自己简单配置下
+用extra，faiss就可编译64位的
+cmake_minimum_required(VERSION 3.10.1)
+add_definitions(-w)
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}   -s  -O3 -DSkip_f2c_Undefs -DNO_LONG_LONG -DNO_BLAS_WRAP")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s  -O3 -DSkip_f2c_Undefs -DNO_LONG_LONG -DNO_BLAS_WRAP")
+add_definitions(-D ANDROID_BIT64)
+file(GLOB_RECURSE SRC_FILES  *)
+source_group( "src"       FILES ${SRC_FILES} )
+
+add_definitions(-D_USE_MATH_DEFINES)
+message(STATUS "cartFaiss SRC_FILES = ${SRC_FILES}")
+add_library(cartFaiss
+    STATIC
+    ${SRC_FILES}
+        )
+set(SYS_LIBS
+    "log"
+    "z"
+   )
+target_link_libraries( cartFaiss
+        cartUtility
+        ${SYS_LIBS}
+        )
+
+
+
+
+######end#######
 # android-faiss
 facebook faiss for android
 
